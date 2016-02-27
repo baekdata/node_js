@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    div
+      img(src="https://s3-ap-northeast-1.amazonaws.com/voicetoss/images/invite.png")
+      h1= "VoiceToss"
+      h2= "From"
+      h3= userName
+      h4= "[" + groupName + "]"
+      h5= "Invite you"
+      input(type='button', value='Accept', onClick='forAndroid()')
+
+script(type='text/javascript').
+  var groupId = "#{groupId}";
+  
+  function startVoiceToss() {
+    setTimeout(function() {
+      document.location = 'market://details?id=com.feedback.voicetoss'; // app package url
+    }, 1000);
+    document.location = 'voicetoss://?groupId=' + groupId; // appUrlScheme
+  }
+  function forAndroid() {
+    var isAndroid = navigator.userAgent.match('Android');
+    if (isAndroid) {
+      return startVoiceToss();
+    }
+    alert('안드로이드만 지원합니다.');
+  }
